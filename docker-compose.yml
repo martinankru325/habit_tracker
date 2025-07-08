@@ -3,8 +3,8 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_USER: martin
-      POSTGRES_PASSWORD: bn7XNpL2
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: userpass
       POSTGRES_DB: habitdb
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -17,7 +17,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgresql+psycopg2://martin:bn7XNpL2@db/habitdb
+      DATABASE_URL: postgresql+psycopg2://user:userpass@db/habitdb
 
   bot:
     build:
