@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: martin
+      POSTGRES_PASSWORD: bn7XNpL2
+      POSTGRES_DB: habitdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql+psycopg2://martin:bn7XNpL2@db/habitdb
+
+  bot:
+    build:
+      context: ./bot
+    depends_on:
+      - api
+    environment:
+      TELEGRAM_TOKEN: "${TELEGRAM_TOKEN}"
+      API_URL: "http://api:8000"
+
+  notifier:
+    build:
+      context: ./notifier
+    depends_on:
+      - api
+    environment:
+      TELEGRAM_TOKEN: "${TELEGRAM_TOKEN}"
+
+volumes:
+  pgdata:
