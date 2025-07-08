@@ -17,7 +17,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgresql+psycopg2://martin:bn7XNpL2@db/habitdb
+      DATABASE_URL: postgresql+psycopg2://user:userpass@db/habitdb
 
   bot:
     build:
